@@ -12,10 +12,9 @@ Gem::Specification.new do |s|
   s.email       = 'yan@shiyason.com'
   s.files       = Dir['lib/*.rb']
   s.executables << 'cob'
-  s.homepage =
-    'https://rubygems.org/gems/cob'
-  s.license = 'MIT'
-  s.add_runtime_dependency 'fileutils', '~> 1.2'
+  s.homepage    = 'https://github.com/yanshiyason/cob'
+  s.license     = 'MIT'
+  s.add_runtime_dependency 'fileutils'
   s.add_runtime_dependency 'json', '~> 2.2'
   s.add_runtime_dependency 'tty-prompt', '~> 0.19.0'
 end
