@@ -17,7 +17,11 @@ module Git
 
     def checkout_branch(text)
       branch = text.downcase.gsub(/[^a-zA-Z0-9#]+/, '_')
-      `git checkout -b #{branch}`
+      output = `git checkout -b #{branch} 2>&1`
+
+      if output.match?(/A branch named '#{branch}' already exists/)
+        `git checkout #{branch}`
+      end
     end
   end
 end
