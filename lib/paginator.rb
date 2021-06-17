@@ -86,7 +86,7 @@ class Paginator
     uname = @credentials.username
     token = @credentials.pa_token
     <<~CMD
-    curl -sS -i "https://api.github.com/repos/#{@git.repository_owner}/#{@git.repository}/issues?page=#{@page}&state=open" \
+    curl -sS -i "https://api.github.com/repos/#{Git.repository_owner}/#{Git.repository}/issues?page=#{@page}&state=open" \
           -u "#{uname}:#{token}" \
           -H "Content-Type: application/json" \
           -H "Accept: application/vnd.github.v3+json"

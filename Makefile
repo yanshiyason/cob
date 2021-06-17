@@ -9,3 +9,7 @@ login:
 push:
 	VERSION=`cat ./lib/version.rb | grep VERSION | sed -n "s/^.*'\(.*\)'.*$$/\1/ p"`; \
 	gem push "cob-$$VERSION.gem"
+
+
+# Note to self: remove bad version
+# $ gem yank cob -v 0.1.1
