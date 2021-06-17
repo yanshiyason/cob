@@ -13,21 +13,24 @@ class Credentials
   def initialize
     @config_file = ENV['GITHUB_CREDENTIALS_FILE'] ||
                    "#{ENV['HOME']}/.cob/github_credentials.json"
-    @config = parse_config
+  end
+
+  def config
+    @config ||= parse_config
   end
 
   def username
     # USERNAME
-    @config['username'] || prompt_username
+    config['username'] || prompt_username
   end
 
   def pa_token
     # PA_TOKEN
-    @config['paToken'] || prompt_pa_token
+    config['paToken'] || prompt_pa_token
   end
 
   def overwrite_config
-    File.write(@config_file, @config.to_json)
+    File.write(@config_file, config.to_json)
   end
 
   def prompt_username
@@ -37,7 +40,7 @@ class Credentials
       q.modify   :lowercase
     end
 
-    @config['username'] = username
+    config['username'] = username
     overwrite_config
 
     username
@@ -49,7 +52,7 @@ class Credentials
       q.required true
     end
 
-    @config['paToken'] = token
+    config['paToken'] = token
     overwrite_config
 
     token

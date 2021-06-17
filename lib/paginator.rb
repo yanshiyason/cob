@@ -53,9 +53,23 @@ class Paginator
     _header, body = http_get_issues.split("\r\n\r\n")
     data = JSON.parse(body)
 
-    # TODO: move elsewhere
+    if data.is_a?(Hash) && data['message'] == 'Not Found'
+      puts "Github's API might have changed..."
+      puts "Following request failed:"
+      puts curl_command
+
+      exit 1
+    end
+
     if data.is_a?(Hash) && data['message'] == 'Bad credentials'
       puts 'Your github credentials are wrong.'
+      puts "Github made changes to it's authentication requirements.."
+      puts "In order to access the issues of a private repo, you need to create a"
+      puts "personal access token with at least the 'repo' privilages.."
+      puts "please try again with a new token, you can make one at the URL below"
+      puts ""
+      puts "    https://github.com/settings/tokens"
+      puts ""
 
       @credentials.reset_config_file
       exit 1
@@ -65,10 +79,18 @@ class Paginator
   end
 
   def http_get_issues
+    `#{curl_command}`
+  end
+
+  def curl_command
     uname = @credentials.username
     token = @credentials.pa_token
-    `curl -sS -i https://api.github.com/repos/#{Git.repository_owner}/#{Git.repository}/issues?page=#{@page} \
+    <<~CMD
+    curl -sS -i "https://api.github.com/repos/#{@git.repository_owner}/#{@git.repository}/issues?page=#{@page}&state=open" \
           -u "#{uname}:#{token}" \
-          -H "Content-Type: application/json"`
+          -H "Content-Type: application/json" \
+          -H "Accept: application/vnd.github.v3+json"
+          
+    CMD
   end
 end
