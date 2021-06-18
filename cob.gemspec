@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.executables << 'cob'
   s.homepage    = 'https://github.com/yanshiyason/cob'
   s.license     = 'MIT'
-  s.add_runtime_dependency 'fileutils'
-  s.add_runtime_dependency 'json', '~> 2.2'
-  s.add_runtime_dependency 'tty-prompt', '~> 0.19.0'
+  s.add_runtime_dependency 'fileutils', '~> 1.5'
+  s.add_runtime_dependency 'json', '~> 2.5', '>= 2.5.1'
+  s.add_runtime_dependency 'tty-prompt', '~> 0.23.1'
 end

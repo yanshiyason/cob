@@ -12,4 +12,4 @@ push:
 
 
 # Note to self: remove bad version
-# $ gem yank cob -v 0.1.1
+# $ gem yank cob -v 0.1.2
